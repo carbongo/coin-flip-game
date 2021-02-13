@@ -1,0 +1,32 @@
+{
+  "name": "coin-flip-game",
+  "version": "1.0.0",
+  "description": "Flip a coin virtually as if flipping a real coin. And try to guess the result.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bin": {
+    "coinflip": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbongo/coin-flip-game.git"
+  },
+  "keywords": [
+    "coin",
+    "flip",
+    "coin-flip",
+    "coinflip",
+    "game"
+  ],
+  "author": "carbongo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carbongo/coin-flip-game/issues"
+  },
+  "homepage": "https://github.com/carbongo/coin-flip-game#readme",
+  "dependencies": {
+    "yargs": "^16.2.0"
+  }
+}
