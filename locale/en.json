@@ -1,0 +1,15 @@
+{
+    "key": {
+        "yes": "y",
+        "no": "n",
+        "heads": "h",
+        "tails": "t"
+    },
+    "result": {
+        "one": "🦅 Heads",
+        "two": "🔢 Tails",
+        "three": "📍 Edge"
+    },
+    "fast": "Coin tossed. Result: ",
+    "introduction": "Hiya! So, here's the deal: You have to guess the side"
+}
