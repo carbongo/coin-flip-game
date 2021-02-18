@@ -22,8 +22,8 @@
         ]
     },
     "fast": "Coin tossed. Result: ",
-    "introduction": "Hiya! So, here's the deal: You have to guess the side and I'll tell if you guessed right or wrong. What is your guess? (1 (Heads) / 2 (Tails) / q (Quit the game))",
-    "next": "What is your next guess? (1 (Heads) / 2 (Tails) / q (Quit the game))",
+    "introduction": "Hiya! So, here's the deal: You have to guess the side and I'll tell if you guessed right or wrong. What is your guess? (1 (🦅 Heads) / 2 (🔢 Tails) / q (Quit the game))",
+    "next": "What is your next guess? (1 (🦅 Heads) / 2 (🔢 Tails) / q (Quit the game))",
     "exit": [
         "Thanks for playing! See you!",
         "Okie-dokie. Later!",
