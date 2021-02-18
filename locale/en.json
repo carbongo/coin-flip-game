@@ -1,15 +1,32 @@
 {
     "key": {
-        "yes": "y",
-        "no": "n",
-        "heads": "h",
-        "tails": "t"
+        "quit": "q",
+        "heads": "1",
+        "tails": "2"
     },
     "result": {
         "one": "🦅 Heads",
         "two": "🔢 Tails",
         "three": "📍 Edge"
     },
+    "answer": {
+        "right": [
+            "Nice! You got it right! It's ",
+            "Blimey! You're right! It's ",
+            "Precisely! It's "
+        ],
+        "wrong": [
+            "Oof! You got it wrong! It's ",
+            "Ah! You're wrong! It's ",
+            "Wrong! It's "
+        ]
+    },
     "fast": "Coin tossed. Result: ",
-    "introduction": "Hiya! So, here's the deal: You have to guess the side"
+    "introduction": "Hiya! So, here's the deal: You have to guess the side and I'll tell if you guessed right or wrong. What is your guess? (1 (Heads) / 2 (Tails) / q (Quit the game))",
+    "next": "What is your next guess? (1 (Heads) / 2 (Tails) / q (Quit the game))",
+    "exit": [
+        "Thanks for playing! See you!",
+        "Okie-dokie. Later!",
+        "Thank you. Cheers!"
+    ]
 }

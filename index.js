@@ -11,11 +11,11 @@ const argv = yargs(hideBin(process.argv))
     .usage('coinflip <LOGFILE.TXT> [OPTION]')
     .usage('')
     .usage('Displays the date')
-    .command('LOGFILE.TXT', 'Sets the logfile name as "LOGFILE.TXT"')
+    .command('LOGFILE.TXT', '(optional) Sets the logfile name as "LOGFILE.TXT. The filename is a current date by default.')
     .alias('game', 'Game').describe('game', 'Start guessing')
     .describe('debug', 'Debug (input logging)')
     .example('coinflip', 'Flips the coin')
-    .example('coinflip -game', 'Starts the guessing game')
+    .example('coinflip --game', 'Starts the guessing game')
     .example('coinflip myluck.txt', 'Flips the coin and puts logs into the "myluck.txt" file')
     .example('coinflip myluck.txt --game', 'Starts the guessing game and puts logs into the "myluck.txt" file')
     .argv;
@@ -33,9 +33,14 @@ const rl = readline.createInterface({
 });
 
 // GLOBAL VARIABLES
+const currentDate = new Date;
 const EOL = '\n';
-let targetNumber = null;
+let logFilename = null;
+let coinValue = null;
 let locale = null;
+if (arguments[0]) logFilename = "logs/" + arguments[0];
+else logFilename = "logs/"
++ currentDate.toISOString().replaceAll(':','-') + ".txt";
 
 // SET SYSTEM LOCALE IF AVAILABLE
 if (process.env.LANG.includes("ru")) locale = russian;
@@ -46,13 +51,32 @@ const getRandomAnswer = function (array) {
     return array[Math.floor(Math.random() * Math.floor(array.length))];
 };
 
-// READLINE QUESTION FUNCTION WITH COIN GUESS
-const number_question = function() {
-    rl.question("", (answer) => {
-        if (answer==targetNumber) initialisation(getRandomAnswer(locale.answer.right) + EOL);
-        else initialisation(getRandomAnswer(locale.answer.right) + EOL);
+// WRITE TO A FILE
+const writeToFile = function(guess, value) {
+    let playersGuess = "Player's guess: " + guess + "; ";
+    let answer = "Answer: " + coinValue + "." + EOL;
+    if (!guess) playersGuess = '';
+    if (!value) answer = '';
+    fs.appendFile(logFilename, playersGuess + answer,
+    function (e) {
+        if (e) fs.writeFile(logFilename, playersGuess + answer,
+        function (e) {
+            if (e) throw e;
+        });
     });
-};
+}
+
+// CHECK A COIN GUESS
+const checkResult = function(value) {
+    let guess = null;
+    if (value==locale.key.heads) guess=locale.result.one;
+    if (value==locale.key.tails) guess=locale.result.two;
+    if (coinValue==guess) rl.write(getRandomAnswer(locale.answer.right)
+    + coinValue + EOL);
+    else rl.write(getRandomAnswer(locale.answer.wrong) + coinValue + EOL);
+    writeToFile(guess, coinValue);
+    initialisation(locale.next + EOL);
+}
 
 // COINFLIP
 const flip_a_coin = function() {
@@ -63,16 +87,19 @@ const flip_a_coin = function() {
     else return locale.result.three;
 };
 
-// READLINE QUESTION FUNCTION IF PLAYER IS READY
+// READLINE QUESTION FUNCTION IF PLAYER IS READY (GAME ARG)
 const initialisation = function(line) {
     rl.question(line, (answer) => {
         switch(answer) {
-            case locale.key.yes:
-                flip_a_coin();
-                rl.write(locale.ready + EOL);
-                number_question();
+            case locale.key.heads:
+                coinValue = flip_a_coin();
+                checkResult(answer);
                 break;
-            case locale.key.no:
+            case locale.key.tails:
+                coinValue = flip_a_coin();
+                checkResult(answer);
+                break;
+            case locale.key.quit:
                 rl.write(getRandomAnswer(locale.exit) + EOL);
                 rl.close();
                 break;
@@ -83,18 +110,16 @@ const initialisation = function(line) {
     });
 };
 
+// FAST FLIP (NO ARGS)
 const fast_flip = function() {
-    rl.write(locale.fast + flip_a_coin() + EOL);
+    coinValue = flip_a_coin();
+    rl.write(locale.fast + coinValue + EOL);
     rl.close();
 };
 
 // GAME START
 if (game) initialisation(locale.introduction + EOL);
-else fast_flip()
-
-// try {
-//     fs.unlinkSync('/logs/');
-//     console.log('successfully deleted /tmp/hello');
-//   } catch (err) {
-//     // handle the error
-//   }
+else {
+    fast_flip();
+    writeToFile(false, coinValue);
+}
