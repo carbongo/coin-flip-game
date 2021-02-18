@@ -54,13 +54,13 @@ Coin tossed. Result: 🔢 Tails
 ```
 ```bash
 $ coinflip --game
-Hiya! So, here is the deal: You have to guess the side and I will tell you guessed right or wrong. What is your guess? (1 (Heads) / 2 (Tails) / q (Quit the game))
+Hiya! So, here is the deal: You have to guess the side and I will tell you guessed right or wrong. What is your guess? (🦅 Heads) / 2 (🔢 Tails) / q (Quit the game))
 $ 1
 Oof! You got it wrong! It is 🔢 Tails
-What is your next guess? (1 (Heads) / 2 (Tails) / q (Quit the game))
+What is your next guess? (🦅 Heads) / 2 (🔢 Tails) / q (Quit the game))
 $ 1
 Precisely! It is 🦅 Heads
-What is your next guess? (1 (Heads) / 2 (Tails) / q (Quit the game))
+What is your next guess? (🦅 Heads) / 2 (🔢 Tails) / q (Quit the game))
 $ q
 Thank you! See you soon!
 ```
